@@ -5,9 +5,44 @@
 /**
  * Função que recupera o ID do produto passado como parâmetro.
  * @param {Element} product - Elemento do produto.
- * @returns {string} ID do produto.
+ * @returns {string} - ID do produto.
  */
  const getIdFromProductItem = (product) => product.querySelector('span.item_id').innerText;
+
+/**
+ * Função que remove um item do localStorage de cartItems.
+ * @param {string} id - ID do produto.
+ */
+ const removeCartItem = (id) => {
+    const cartItems = loadCartItems();
+    const removeItemIndex = cartItems.findIndex((item) => item === id);
+    cartItems.splice(removeItemIndex, 1);
+    saveCartItems(JSON.stringify(cartItems));
+  };
+ /**
+ * Função que adiciona um item ao cartItems.
+ * @param {string} id - ID do produto.
+ */
+  const addCartItem = (id) => {
+    const cartItems = loadCartItems();
+    cartItems.push(id);
+    saveCartItems(JSON.stringify(cartItems));
+  };
+
+/**
+ * Função que carrega os items do localStorage e salva um array vazio se eles não existirem.
+ * @param {string} id - ID do produto.
+ */
+  const loadCartItems = (id) => {
+    const cartItems = JSON.parse(getSavedCartItems());
+    if (cartItems === null) {
+      saveCartItems(JSON.stringify([]));
+      return [];
+    } else {
+      return cartItems;
+    }
+  };
+
  /**
   * Função responsável por criar e retornar um item do carrinho.
   * @param {Object} product - Objeto do produto.
@@ -19,9 +54,11 @@
  const createCartItemElement = ({ id, title, price }) => {
    const li = document.createElement('li');
    li.className = 'cart__item';
+   li.productId = id;
    li.innerText = `ID: ${id} | TITLE: ${title} | PRICE: $${price}`;
    li.addEventListener('click', (event) => {
     event.target.remove();
+    removeCartItem(event.target.productId);
    });
    return li;
  };
@@ -35,6 +72,16 @@
   const cartContainer = document.getElementById('cart__items');
   const { id, title, price } = result;
   cartContainer.appendChild(createCartItemElement({ id, title, price }));
+};
+
+/**
+ * Função que adiciona todos os items adicionados que estão no carrinho salvos no localStorage.
+ */
+ const addAllCartProducts = () => {
+  const cartItems = loadCartItems();
+  cartItems.forEach(async (id) => {
+    await addToCart(id);
+  }); 
 };
 
 /**
@@ -80,7 +127,9 @@ const createProductItemElement = ({ id, title, thumbnail }) => {
   section.appendChild(createProductImageElement(thumbnail));
   const cartButton = createCustomElement('button', 'item__add', 'Adicionar ao carrinho!');
   cartButton.addEventListener('click', async (event) => {
-    addToCart(getIdFromProductItem(event.target.parentElement));
+    const targetId = getIdFromProductItem(event.target.parentElement);
+    addCartItem(targetId);
+    addToCart(targetId);
   });
   section.appendChild(cartButton);
 
@@ -101,5 +150,6 @@ const addAllProducts = async (query) => {
 };
 
 window.onload = () => { 
+  addAllCartProducts();
   addAllProducts('computador');
 };
