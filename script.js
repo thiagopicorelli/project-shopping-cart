@@ -9,6 +9,8 @@
  */
  const getIdFromProductItem = (product) => product.querySelector('span.item_id').innerText;
 
+
+
  /**
   * Função responsável por criar e retornar um item do carrinho.
   * @param {Object} product - Objeto do produto.
@@ -21,7 +23,9 @@
    const li = document.createElement('li');
    li.className = 'cart__item';
    li.innerText = `ID: ${id} | TITLE: ${title} | PRICE: $${price}`;
-   // li.addEventListener('click', cartItemClickListener);
+   li.addEventListener('click', (event) => {
+    event.target.remove();
+   });
    return li;
  };
 
