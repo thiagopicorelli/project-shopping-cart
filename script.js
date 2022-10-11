@@ -8,9 +8,6 @@
  * @returns {string} ID do produto.
  */
  const getIdFromProductItem = (product) => product.querySelector('span.item_id').innerText;
-
-
-
  /**
   * Função responsável por criar e retornar um item do carrinho.
   * @param {Object} product - Objeto do produto.
