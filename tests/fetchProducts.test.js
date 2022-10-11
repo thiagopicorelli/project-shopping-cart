@@ -17,7 +17,7 @@ describe('1 - Teste a função fetchProducts', () => {
     expect(resultado).toEqual(computadorSearch);
   });
 
-  it('1.4 - É retornado uma estrutura válida com um argumento válido', () => {
+  it('1.4 - É retornado um erro se o argumento não for definido', () => {
     expect(() => { fetchProducts(); }).toThrow(new Error('You must provide an url'));
   }); 
 });
