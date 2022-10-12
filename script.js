@@ -13,12 +13,16 @@
  * Função que carrega os items do localStorage e salva um array vazio se eles não existirem.
  */
   const loadCartItems = () => {
-    const cartItems = JSON.parse(getSavedCartItems());
-    if (cartItems === null) {
+    try {
+      const cartItems = JSON.parse(getSavedCartItems());
+      if (cartItems !== null) {
+        return cartItems;
+      }
+      throw new Error();
+    } catch {
       saveCartItems(JSON.stringify([]));
       return [];
     }
-    return cartItems;
   };
 
  /**
@@ -161,8 +165,18 @@ const addAllProducts = async (query) => {
   });
 };
 
+/**
+ * Função que esvazia o carrinho.
+ */
+const emptyCart = () => {
+  document.getElementById('cart__items').innerHTML = '';
+  saveCartItems(JSON.stringify([]));
+  updateTotalValueInCart();
+}
+
 window.onload = () => { 
   addAllSavedCartProductElements();
   addAllProducts('computador');
   updateTotalValueInCart();
+  document.getElementById('empty-cart').addEventListener('click', emptyCart)
 };
