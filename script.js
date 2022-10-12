@@ -11,9 +11,8 @@
 
 /**
  * Função que carrega os items do localStorage e salva um array vazio se eles não existirem.
- * @param {string} id - ID do produto.
  */
-  const loadCartItems = (id) => {
+  const loadCartItems = () => {
     const cartItems = JSON.parse(getSavedCartItems());
     if (cartItems === null) {
       saveCartItems(JSON.stringify([]));
@@ -43,6 +42,19 @@
   saveCartItems(JSON.stringify(cartItems));
 };
 
+/**
+ * Função que faz a soma de todos os items no carrinho de compras.
+ */
+ const updateTotalValueInCart = async () => {
+  const cartItems = loadCartItems();
+
+  let totalValue = 0;
+  cartItems.forEach((item) => { totalValue += item.price; });
+
+  const totalPriceElement = document.getElementById('total-price');
+  totalPriceElement.innerHTML = totalValue;
+ };
+
  /**
   * Função responsável por criar e retornar um item do carrinho.
   * @param {Object} product - Objeto do produto.
@@ -59,6 +71,7 @@
    li.addEventListener('click', (event) => {
     removeCartItem(id);
     event.target.remove();
+    updateTotalValueInCart();
    });
    return li;
  };
@@ -128,6 +141,7 @@ const createProductItemElement = ({ id, title, thumbnail }) => {
     const { price } = await fetchItem(id);
     addCartItem({ id, title, price });
     addToCart({ id, title, price });
+    updateTotalValueInCart();
   });
   section.appendChild(cartButton);
 
@@ -150,4 +164,5 @@ const addAllProducts = async (query) => {
 window.onload = () => { 
   addAllSavedCartProductElements();
   addAllProducts('computador');
+  updateTotalValueInCart();
 };
