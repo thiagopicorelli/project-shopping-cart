@@ -3,13 +3,6 @@
 // Fique a vontade para modificar o código já escrito e criar suas próprias funções!
 
 /**
- * Função que recupera o ID do produto passado como parâmetro.
- * @param {Element} product - Elemento do produto.
- * @returns {string} - ID do produto.
- */
- const getIdFromProductItem = (product) => product.querySelector('span.item_id').innerText;
-
-/**
  * Função que carrega os items do localStorage e salva um array vazio se eles não existirem.
  */
   const loadCartItems = () => {
@@ -141,7 +134,7 @@ const createProductItemElement = ({ id, title, thumbnail }) => {
   section.appendChild(createCustomElement('span', 'item__title', title));
   section.appendChild(createProductImageElement(thumbnail));
   const cartButton = createCustomElement('button', 'item__add', 'Adicionar ao carrinho!');
-  cartButton.addEventListener('click', async (event) => {
+  cartButton.addEventListener('click', async () => {
     const { price } = await fetchItem(id);
     addCartItem({ id, title, price });
     addToCart({ id, title, price });
@@ -153,11 +146,25 @@ const createProductItemElement = ({ id, title, thumbnail }) => {
 };
 
 /**
+ * Função que cria tela de carregamento.
+ */
+const loadingSection = () => {
+  const section = document.createElement('section');
+  section.className = 'loading';
+  section.innerText = 'carregando...';
+  return section;
+};
+
+/**
  * Função que adiciona todos os items recebidos pela API no site, baseado no elemento sendo buscado.
  * @param {string} query - Chave de busca.
  */
 const addAllProducts = async (query) => {
+  // Adiciona tela de carregamento
+  const itemContainer = document.getElementById('container-items');
+  itemContainer.insertBefore(loadingSection(), itemContainer.firstChild);
   const products = await fetchProducts(query);
+  itemContainer.removeChild(itemContainer.firstChild);
   const itemsContainer = document.getElementById('items');
   products.results.forEach((result) => {
     const { id, title, thumbnail } = result;
