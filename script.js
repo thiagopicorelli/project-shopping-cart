@@ -19,7 +19,7 @@
         return cartItems;
       }
       throw new Error();
-    } catch {
+    } catch (e) {
       saveCartItems(JSON.stringify([]));
       return [];
     }
@@ -172,11 +172,11 @@ const emptyCart = () => {
   document.getElementById('cart__items').innerHTML = '';
   saveCartItems(JSON.stringify([]));
   updateTotalValueInCart();
-}
+};
 
 window.onload = () => { 
-  addAllSavedCartProductElements();
   addAllProducts('computador');
+  addAllSavedCartProductElements();
   updateTotalValueInCart();
-  document.getElementById('empty-cart').addEventListener('click', emptyCart)
+  document.getElementById('empty-cart').addEventListener('click', emptyCart);
 };
