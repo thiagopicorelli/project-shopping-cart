@@ -103,7 +103,8 @@ body {
 }
 
 .item .item__id {
-  display: none;
+  font-size: small;
+  text-align: center;
 }
 
 .item .item__title {
@@ -116,6 +117,8 @@ body {
 
 .item .item__image {
   width: 100%;
+  border: 2px solid grey;
+  border-bottom: 0px;
 }
 
 .item .item__add {
