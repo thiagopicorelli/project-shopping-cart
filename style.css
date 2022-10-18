@@ -143,6 +143,16 @@ body {
   overflow-y: scroll;
 }
 
+.cart .cart__item {
+  padding: 7px 15px;
+}
+
+#total-price-element {
+  font-size: large;
+  text-align: center;
+  padding: 20px;
+}
+
 .empty-cart {
   width: 170px;
   height: 35px;
