@@ -1,13 +1,12 @@
-# :construction: README customizado em construção ! :construction:
-<!-- Olá, Tryber!
-Esse é apenas um arquivo inicial para o README do seu projeto no qual você pode customizar e reutilizar todas as vezes que for executar o trybe-publisher.
+# Carrinho de Compras
+Trabalho feito na Trybe de uma aplicação de mercado, que deveria ser completada utilizando o modelo de desenvolvimento orientado à testes (TDD). Foi adicionado a conexão do sistema inicial a uma API do Mercado Livre, assim como as funcionalidades do carrinho de compras do site. 
+## Arquivos e pastas trabalhados
+[script.js](https://github.com/thiagopicorelli/project-shopping-cart/blob/main/script.js)
 
-Para deixá-lo com a sua cara, basta alterar o seguinte arquivo da sua máquina: ~/.student-repo-publisher/custom/_NEW_README.md
+[/helpers](https://github.com/thiagopicorelli/project-shopping-cart/tree/main/helpers)
 
-É essencial que você preencha esse documento por conta própria, ok?
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
-:warning: IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
--->
+[/tests](https://github.com/thiagopicorelli/project-shopping-cart/tree/main/tests)
+
+## Linguagens
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+![Jest](https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white)
